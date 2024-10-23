@@ -144,7 +144,14 @@
 
   // Display bibliography.
   if bibliography != none {
-    show std-bibliography: set text(9pt)
+    show std-bibliography: it => {
+      set text(9pt)
+      it
+      if "note" in it.fields() {
+        linebreak()
+        text(style: "italic")[Note: #it.fields().note]
+      }
+    }
     show regex("[0-9a-zA-Z]"): set text(font: english)
     set std-bibliography(title:  align(text(14pt)[参考文献]), style: "rsj-conf.csl")
     bibliography
